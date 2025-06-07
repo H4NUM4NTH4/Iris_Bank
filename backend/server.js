@@ -14,12 +14,24 @@ app.use(cors({
 const pythonScriptRouter = require('./routes/pythonScriptRouter');
 app.use('/api', pythonScriptRouter);
 
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/hello', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-})
-  .then(() => console.log('MongoDB connected'))
-  .catch((err) => console.log(err));
+// MongoDB Connection with retry logic
+const connectDB = async () => {
+  try {
+    if (!process.env.MONGODB_URI) {
+      throw new Error('MONGODB_URI is not defined in environment variables');
+    }
+    
+    await mongoose.connect(process.env.MONGODB_URI);
+    console.log('MongoDB connected successfully');
+  } catch (error) {
+    console.error('MongoDB connection error:', error);
+    // Retry connection after 5 seconds
+    setTimeout(connectDB, 5000);
+  }
+};
+
+connectDB();
+
 app.use('/api/auth', authRoutes);
 
 const PORT = process.env.PORT || 5000;
