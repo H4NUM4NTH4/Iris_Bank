@@ -1,6 +1,6 @@
 const User = require('../models/User');
 const jwt = require('jsonwebtoken');
-const bcrypt = require('bcrypt'); // Import bcrypt
+const bcrypt = require('bcryptjs'); // Changed to bcryptjs
 
 // Register controller
 exports.register = async (req, res) => {
@@ -27,7 +27,7 @@ exports.register = async (req, res) => {
     });
 
     // Generate JWT token
-    const token = jwt.sign({ id: user._id }, 'your_jwt_secret', { expiresIn: '1h' });
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
 
     // Respond with the token
     res.status(201).json({ token });
@@ -53,7 +53,7 @@ exports.login = async (req, res) => {
     }
 
     // Generate JWT token
-    const token = jwt.sign({ id: user._id }, 'your_jwt_secret', { expiresIn: '1h' });
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
 
     // Respond with the token and user details
     const { password: _, ...userData } = user.toObject();  // Exclude password from the response
@@ -62,6 +62,7 @@ exports.login = async (req, res) => {
     res.status(400).json({ error: err.message });
   }
 };
+
 // Signout controller
 exports.signout = async (req, res) => {
   try {
