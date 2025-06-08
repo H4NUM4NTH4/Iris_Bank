@@ -200,7 +200,7 @@ const HowItWorks = () => {
             </Card>
           </div>
 
-          <h2 className="text-2xl sm:text-3xl font-semibold text-center mb-6 sm:mb-8">Detailed Working Process</h2>
+          <h2 className="text-2xl sm:text-3xl text-white font-semibold text-center mb-6 sm:mb-8">Detailed Working Process</h2>
 
           <Accordion type="single" collapsible className="w-full">
             <AccordionItem value="item-1" className="border-white border-opacity-20 shadow-lg mb-4">
