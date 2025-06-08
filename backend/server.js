@@ -8,7 +8,7 @@ const authRoutes = require('./routes/auth'); // Ensure the path is correct
 const app = express();
 app.use(express.json());
 app.use(cors({
-  origin: process.env.FRONTEND_URL || 'http://localhost:5173',
+  origin: ['http://localhost:5173', 'https://iris-bank-frontend-4atk0grwp-sanjus-projects-48f9be41.vercel.app', 'https://iris-bank-frontend.vercel.app'],
   credentials: true
 }));
 const pythonScriptRouter = require('./routes/pythonScriptRouter');
