@@ -121,6 +121,10 @@ app.post('/api/create-order', verifyToken, (req, res) => {
   });
 });
 
+app.get('/', (req, res) => {
+  res.send('Backend is running!');
+});
+
 
 
 
