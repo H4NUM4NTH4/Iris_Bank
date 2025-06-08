@@ -1,9 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const { register, login, signout } = require('../controllers/authController'); // Ensure the path is correct
+const cors = require('cors');
 
 router.post('/register', register);
 router.post('/login', login);
+router.options('/login', cors()); // Handle preflight OPTIONS requests for login
 router.post('/signout', signout);
 // Get user data by ID
 router.get('/:id', async (req, res) => {
